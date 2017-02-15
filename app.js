@@ -20,12 +20,23 @@ server.post('/api/messages', connector.listen());
 bot.dialog('/', function (session) {
 
     request
-        .get('http://google.com')
+        .get('https://jsonplaceholder.typicode.com/posts/1')
         .on('response', function(response) {
-            console.log(response.statusCode) // 200
-            session.send(response.statusCode);
-            console.log(response.headers['content-type']) // 'image/png'
-            session.send(response.statusCode);
+          //  console.log(response.statusCode) // 200
+          //  session.send(response.statusCode);
+          //  console.log(response.headers['content-type']) // 'image/png'
+          //  session.send(response.statusCode+"");
         })
+        .on('data', function(data) {
+            // decompressed data as it is received
+            var temp=JSON.parse(data);
+            session.send("user Id: "+ temp.userId);
+            session.send("Title: "+ temp.title);
+            session.send("Body:     "+ temp.body);
+            //session.send('decoded chunk: ' + JSON.stringify(data));
+        });
+
+
+
     session.send("Hello World");
 });

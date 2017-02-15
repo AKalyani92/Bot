@@ -36,7 +36,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-4.576923">
               <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-              <folding />
+              <folding>
+                <marker date="1487136735452" expanded="true" signature="0:316" placeholder="{&quot;name&quot;: &quot;Hello-Bot&quot;...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -220,7 +222,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1487136735452" expanded="true" signature="0:316" placeholder="{&quot;name&quot;: &quot;Hello-Bot&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -244,7 +248,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.576923">
           <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-          <folding />
+          <folding>
+            <marker date="1487136735452" expanded="true" signature="0:316" placeholder="{&quot;name&quot;: &quot;Hello-Bot&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>

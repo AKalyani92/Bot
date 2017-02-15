@@ -1,6 +1,7 @@
 // Add your requirements
 var restify = require('restify');
 var builder = require('botbuilder');
+var request = require('request');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -17,5 +18,14 @@ server.post('/api/messages', connector.listen());
 
 // Create bot dialogs
 bot.dialog('/', function (session) {
+
+    request
+        .get('http://google.com')
+        .on('response', function(response) {
+            console.log(response.statusCode) // 200
+            session.send(response.statusCode);
+            console.log(response.headers['content-type']) // 'image/png'
+            session.send(response.statusCode);
+        })
     session.send("Hello World");
 });

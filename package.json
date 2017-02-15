@@ -1,0 +1,16 @@
+{
+  "name": "Hello-Bot",
+  "version": "1.0.0",
+  "description": "My first Bot",
+  "dependencies": {
+    "restify": "^4.3.0",
+    "botbuilder": "^3.6.0"
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {}
+}

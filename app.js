@@ -42,7 +42,7 @@ bot.dialog('/', function (session) {
     request.get('http://alinhana4.bcone.com:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
         'auth': {
             'user': 'TRAIN69_HN5',
-            'pass': 'bcone@123', 
+            'pass': 'bcone@123',
             'sendImmediately': false
         },
         headers:

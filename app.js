@@ -37,7 +37,7 @@ bot.dialog('/', function (session) {
         });
 
 
-    var msg="";
+    /*var msg="";
     var data1 = ""
     request.get('http://alinhana4.bcone.com:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
         'auth': {
@@ -65,20 +65,20 @@ bot.dialog('/', function (session) {
             //console.log("data"+data1);
             // decompressed data as it is received
 
-            /*for(i=0;i<data.d.results.length;i++){
+            /!*for(i=0;i<data.d.results.length;i++){
 
                 listOfPo=listOfPo+data.d.results[i].PoNumber+"\n";
 
 
 
-            }*/
+            }*!/
 
             //msg=msg+data;
             //session.send('decoded chunk: ' + JSON.stringify(data));
          //   session.send("List Of POs:     "+ temp);
 
         })
-        /*.on('end', function(data) {
+        .on('end', function(data) {
             //console.log("data"+data);
 
             //var temp=JSON.parse(data);
@@ -94,8 +94,8 @@ bot.dialog('/', function (session) {
             }
 
             session.send("List Of POs:     "+ listOfPo);
-        })*/
-    ;
+        })
+    ;*/
 
 
 

@@ -19,31 +19,30 @@ server.post('/api/messages', connector.listen());
 // Create bot dialogs
 bot.dialog('/', function (session) {
 
-    request
-        .get('https://jsonplaceholder.typicode.com/posts/1')
-        .on('response', function(response) {
-          //  console.log(response.statusCode) // 200
-          //  session.send(response.statusCode);
-          //  console.log(response.headers['content-type']) // 'image/png'
-          //  session.send(response.statusCode+"");
-        })
-        .on('data', function(data) {
-            // decompressed data as it is received
-            var temp=JSON.parse(data);
-            session.send("user Id: "+ temp.userId);
-            session.send("Title: "+ temp.title);
-            session.send("Body:     "+ temp.body);
-            //session.send('decoded chunk: ' + JSON.stringify(data));
-        });
+    //request
+    //    .get('https://jsonplaceholder.typicode.com/posts/1')
+    //    .on('response', function(response) {
+    //      //  console.log(response.statusCode) // 200
+    //      //  session.send(response.statusCode);
+    //      //  console.log(response.headers['content-type']) // 'image/png'
+    //      //  session.send(response.statusCode+"");
+    //    })
+    //    .on('data', function(data) {
+    //        // decompressed data as it is received
+    //        var temp=JSON.parse(data);
+    //        session.send("user Id: "+ temp.userId);
+    //        session.send("Title: "+ temp.title);
+    //        session.send("Body:     "+ temp.body);
+    //        //session.send('decoded chunk: ' + JSON.stringify(data));
+    //    });
 
 
-    /*var msg="";
+    var msg="";
     var data1 = ""
     request.get('http://alinhana4.bcone.com:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
         'auth': {
             'user': 'TRAIN69_HN5',
-            'pass': 'bcone@123',
-            'sendImmediately': false
+            'pass': 'bcone@123'
         },
         headers:
                 {'Content-Type': 'application/json; charset=utf-8',
@@ -62,16 +61,16 @@ bot.dialog('/', function (session) {
 
             data1 += chunk;
 
-            //console.log("data"+data1);
+            console.log("data"+data1);
             // decompressed data as it is received
 
-            /!*for(i=0;i<data.d.results.length;i++){
+            /*for(i=0;i<data.d.results.length;i++){
 
                 listOfPo=listOfPo+data.d.results[i].PoNumber+"\n";
 
 
 
-            }*!/
+            }*/
 
             //msg=msg+data;
             //session.send('decoded chunk: ' + JSON.stringify(data));
@@ -95,7 +94,7 @@ bot.dialog('/', function (session) {
 
             session.send("List Of POs:     "+ listOfPo);
         })
-    ;*/
+    ;
 
 
 

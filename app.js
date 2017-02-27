@@ -17,7 +17,6 @@ var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
 
 // Create bot dialogs
-
 bot.dialog('/', function (session) {
 
     request
@@ -63,7 +62,7 @@ bot.dialog('/', function (session) {
 
             data1 += chunk;
 
-            console.log("data"+data1);
+            //console.log("data"+data1);
             // decompressed data as it is received
 
             /*for(i=0;i<data.d.results.length;i++){
@@ -79,7 +78,7 @@ bot.dialog('/', function (session) {
          //   session.send("List Of POs:     "+ temp);
 
         })
-        .on('end', function(data) {
+        /*.on('end', function(data) {
             //console.log("data"+data);
 
             //var temp=JSON.parse(data);
@@ -95,7 +94,7 @@ bot.dialog('/', function (session) {
             }
 
             session.send("List Of POs:     "+ listOfPo);
-        })
+        })*/
     ;
 
 

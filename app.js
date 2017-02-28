@@ -61,7 +61,7 @@ bot.dialog('/', function (session) {
 
             data1 += chunk;
 
-            console.log("data"+data1);
+            session.send("debug data:     "+ chunk);
             // decompressed data as it is received
 
             /*for(i=0;i<data.d.results.length;i++){

@@ -45,8 +45,7 @@ bot.dialog('/', function (session) {
             'pass': 'bcone@123'
         },
         headers:
-                {'Content-Type': 'application/json; charset=utf-8',
-                    '$format': 'json'
+                {'Content-Type': 'application/json; charset=utf-8'
                 }
 
 

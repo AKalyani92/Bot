@@ -39,13 +39,15 @@ bot.dialog('/', function (session) {
 
     var msg="";
     var data1 = ""
-    request.get('http://alinhana4.bcone.com:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
+    //request.get('http://alinhana4.bcone.com:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
+    request.get('http://52.0.88.13:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
         'auth': {
             'user': 'TRAIN69_HN5',
             'pass': 'bcone@123'
         },
         headers:
-                {'Content-Type': 'application/json; charset=utf-8'
+                {'Content-Type': 'application/json; charset=utf-8',
+                    '$format': 'json'
                 }
 
 
@@ -60,7 +62,7 @@ bot.dialog('/', function (session) {
 
             data1 += chunk;
 
-            session.send("debug data:     "+ chunk);
+            console.log("data"+data1);
             // decompressed data as it is received
 
             /*for(i=0;i<data.d.results.length;i++){

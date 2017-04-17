@@ -22,10 +22,11 @@ var flag=0;
 
 bot.on('contactRelationUpdate', function (message) {
 
-        bot.send(new builder.Message()
+        /*bot.send(new builder.Message()
          .address(message.address)
-         .text("Hello! I am in contactRelationUpdate"));
+         .text("Hello! I am in contactRelationUpdate"));*/
 
+    bot.beginDialog(message.address, '/');
 
 });
 

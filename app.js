@@ -22,11 +22,15 @@ var flag=0;
 
 bot.on('contactRelationUpdate', function (message) {
 
-        /*bot.send(new builder.Message()
+        bot.send(new builder.Message()
          .address(message.address)
-         .text("Hello! I am in contactRelationUpdate"));*/
+         .text("Hello! I am VendorBot! How can I help you?"));
 
-    bot.beginDialog(message.address, '/');
+    bot.send(new builder.Message()
+        .address(message.address)
+        .text("You can say something like, 'What is the status of my payment?' or 'I would like to update my contact details'"));
+
+
 
 });
 

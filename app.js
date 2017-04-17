@@ -52,14 +52,8 @@ bot.dialog('/payment', [
         session.send(results.response);
         session.send("OTP Verified. Thank You");
         session.send("Your last payment invoice is: OPEN as of 04/14/2017");
-        builder.Prompts.choice(session, "Select one of the following for more details", "Payment Amount|Date of Payment|Payment Mode|Payment method|Payment Bank ", { listStyle: builder.ListStyle.button })
         // builder.Prompts.text(session,"How can i help you?");
         // builder.Prompts.choice(session, "", "Payment Amount|Date of Payment|Payment Mode|Payment method|Bank", { listStyle: builder.ListStyle.none })
-    },
-    function (session, results) {
-
-            session.send(results.response);
-
     }
 ]);
 

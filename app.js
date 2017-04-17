@@ -16,30 +16,7 @@ var connector = new builder.ChatConnector
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
 
-var flag=0;
-
 // Create bot dialogs
-
-/*bot.on('contactRelationUpdate', function (message) {
-
-        /!*bot.send(new builder.Message()
-         .address(message.address)
-         .text("Hello! I am VendorBot! How can I help you?"));*!/
-
-        bot.beginDialog(message.address, '/');
-
-});
-
-bot.on('conversationUpdate', function (message) {
-    if(flag==0) {
-        /!*bot.send(new builder.Message()
-            .address(message.address)
-            .text("Hello! I am VendorBot! How can I help you?"));*!/
-       flag++;
-        bot.beginDialog(message.address, '/');
-   }
-    });*/
-
 bot.dialog('/', [
     function (session) {
         session.send("Hello! I am VendorBot! How can I help you? ");

@@ -16,88 +16,81 @@ var connector = new builder.ChatConnector
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
 
+var flag=0;
+
 // Create bot dialogs
-bot.dialog('/', function (session) {
 
-    request
-       .get('https://jsonplaceholder.typicode.com/posts/1')
-       .on('response', function(response) {
-         //  console.log(response.statusCode) // 200
-         //  session.send(response.statusCode);
-         //  console.log(response.headers['content-type']) // 'image/png'
-         //  session.send(response.statusCode+"");
-       })
-       .on('data', function(data) {
-           // decompressed data as it is received
-           var temp=JSON.parse(data);
-           session.send("user Id: "+ temp.userId);
-           session.send("Title: "+ temp.title);
-           session.send("Body:     "+ temp.body);
-           //session.send('decoded chunk: ' + JSON.stringify(data));
-       });
+bot.on('contactRelationUpdate', function (message) {
+
+        bot.send(new builder.Message()
+         .address(message.address)
+         .text("Hello! I am in contactRelationUpdate"));
 
 
-    //request.get('http://52.0.88.13:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
-    // var msg="";
-    // var data1 = ""
-    /*request.get('http://alinhana4.bcone.com:8000/sap/opu/odata/sap/ZINFA_PO_SRV/POSet?$format=json', {
-        'auth': {
-            'user': 'TRAIN69_HN5',
-            'pass': 'bcone@123'
-        },
-        headers:
-                {'Content-Type': 'application/json; charset=utf-8',
-                    '$format': 'json'
-                }
-
-
-
-        //  console.log(response.statusCode) // 200
-        //  session.send(response.statusCode);
-        //  console.log(response.headers['content-type']) // 'image/png'
-        //  session.send(response.statusCode+"");
-    })
-        .on('data', function(chunk) {
-
-
-            data1 += chunk;
-
-            console.log("data"+data1);
-            // decompressed data as it is received
-
-            /!*for(i=0;i<data.d.results.length;i++){
-
-                listOfPo=listOfPo+data.d.results[i].PoNumber+"\n";
-
-
-
-            }*!/
-
-            //msg=msg+data;
-            //session.send('decoded chunk: ' + JSON.stringify(data));
-         //   session.send("List Of POs:     "+ temp);
-
-        })
-        .on('end', function(data) {
-            //console.log("data"+data);
-
-            //var temp=JSON.parse(data);
-
-            var listOfPo="";
-
-            for(i=0;i<JSON.parse(data1).d.results.length;i++){
-
-                listOfPo=listOfPo+JSON.parse(data1).d.results[i].PoNumber+"\n";
-
-
-
-            }
-
-            session.send("List Of POs:     "+ listOfPo);
-        })
-    ;*/
-
-
-
-    //session.send("Hello World");
 });
+
+bot.on('conversationUpdate', function (message) {
+    if(flag==0) {
+        /*bot.send(new builder.Message()
+            .address(message.address)
+            .text("Hello! I am VendorBot! How can I help you?"));*/
+       flag++;
+        bot.beginDialog(message.address, '/');
+   }
+    });
+
+bot.dialog('/', [
+    function (session) {
+        session.send("Hello! I am VendorBot! How can I help you? ");
+        builder.Prompts.text(session, "You can say something like, 'What is the status of my payment?' or 'I would like to update my contact details'");
+    },
+    function (session, results) {
+
+        if (results.response.toUpperCase().indexOf("PAYMENT") !== -1) {
+            session.beginDialog('/payment');
+            //session.send("Payment");
+        } else if (results.response.toUpperCase().indexOf("CREATE") !== -1) {
+           // session.send("UPDATE");
+            session.beginDialog('/update');
+        } else {
+            session.send("Not Trained...");
+        }
+    }
+]);
+
+bot.dialog('/payment', [
+    function (session) {
+        builder.Prompts.text(session, 'Please Enter Your DUNS number');
+    },
+    function (session, results) {
+        builder.Prompts.text(session,"An OTP has been sent to the registered email on file. Please Enter the OTP.");
+         // console.log(results.response);
+        // builder.Prompts.text(session,"An OTP has been sent to the registered email on file. Please Enter the OTP.");
+        // console.log(results.response);
+       // session.send("Please ask the query");
+
+    },
+    function (session, results) {
+        session.send(results.response);
+        session.send("OTP Verified. Thank You");
+        session.send("Your last payment invoice is: OPEN as of 04/14/2017");
+        builder.Prompts.choice(session, "Select one of the following for more details", "Payment Amount|Date of Payment|Payment Mode|Payment method|Payment Bank ", { listStyle: builder.ListStyle.button })
+        // builder.Prompts.text(session,"How can i help you?");
+        // builder.Prompts.choice(session, "", "Payment Amount|Date of Payment|Payment Mode|Payment method|Bank", { listStyle: builder.ListStyle.none })
+    },
+    function (session, results) {
+
+            session.send(results.response);
+
+    }
+]);
+
+bot.dialog('/update', [
+    function (session) {
+        builder.Prompts.text(session, 'Hi! What is your Gender?');
+    },
+    function (session, results) {
+        session.send("ok");
+        session.endDialog();
+    }
+]);

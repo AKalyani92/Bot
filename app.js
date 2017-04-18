@@ -2,6 +2,8 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var request = require('request');
+var http = require('http');
+var fs = require('fs');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -125,3 +127,28 @@ bot.dialog('/update', [
         session.endDialog();
     }
 ]);
+
+
+
+
+fs.readFile('./termsOfUse.html', function (err, html) {
+    if (err) {
+        throw err;
+    }
+    http.createServer(function(request, response) {
+        response.writeHeader(200, {"Content-Type": "text/html"});
+        response.write(html);
+        response.end();
+    }).listen(80);
+});
+
+fs.readFile('./privacyStatement.html', function (err, html) {
+    if (err) {
+        throw err;
+    }
+    http.createServer(function(request, response) {
+        response.writeHeader(200, {"Content-Type": "text/html"});
+        response.write(html);
+        response.end();
+    }).listen(81);
+});

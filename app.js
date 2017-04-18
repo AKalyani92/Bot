@@ -2,6 +2,7 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var request = require('request');
+
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.PORT || 3000, function()
@@ -19,23 +20,23 @@ server.post('/api/messages', connector.listen());
 bot.dialog('/', [
     function (session) {
         session.send("Hello! I am VendorBot! How can I help you? ");
-        builder.Prompts.text(session, "You can say something like, 'What is the status of my payment?' or 'I would like to update my contact details'");
+        builder.Prompts.text(session, "You can say something like, 'What is the status of my payment?' or 'I would like to know inventory details for products I supply'");
     },
     function (session, results) {
 
         if (results.response.toUpperCase().indexOf("PAYMENT") !== -1) {
             session.beginDialog('/payment');
             //session.send("Payment");
-        } else if (results.response.toUpperCase().indexOf("CREATE") !== -1) {
-           // session.send("UPDATE");
-            session.beginDialog('/update');
+        } else if (results.response.toUpperCase().indexOf("INVENTORY") !== -1) {
+            // session.send("UPDATE");
+            session.beginDialog('/inventory');
         } else {
             session.send("Not Trained...");
         }
     }
     /*function (session, results) {
-        session.endConversation("Goodbye until next time...");
-    }*/
+     session.endConversation("Goodbye until next time...");
+     }*/
 ]);
 
 bot.dialog('/payment', [
@@ -44,10 +45,10 @@ bot.dialog('/payment', [
     },
     function (session, results) {
         builder.Prompts.text(session,"An OTP has been sent to the registered email on file. Please Enter the OTP.");
-         // console.log(results.response);
+        // console.log(results.response);
         // builder.Prompts.text(session,"An OTP has been sent to the registered email on file. Please Enter the OTP.");
         // console.log(results.response);
-       // session.send("Please ask the query");
+        // session.send("Please ask the query");
 
     },
     function (session, results) {
@@ -58,28 +59,28 @@ bot.dialog('/payment', [
         // builder.Prompts.text(session,"How can i help you?");
         // builder.Prompts.choice(session, "", "Payment Amount|Date of Payment|Payment Mode|Payment method|Bank|Main Menu", { listStyle: builder.ListStyle.button })
     }
-  /*  function (session, results) {
-        switch (results.response.index) {
-            case 0:
-                session.send("Amount is: $ 15,000");
-                break;
-            case 1:
-                session.send("Date is: $ 09/04/2017");
-                break;
-            case 2:
-                session.send("Payment Mode is: DD");
-                break;
-            case 3:
-                session.send("Payment Method is: DD");
-                break;
-            case 4:
-                session.send("Payment Bank is: ICICI");
-                break;
-            case 5:
-                session.endDialog();
-                break;
-        }
-    }*/
+    /*  function (session, results) {
+     switch (results.response.index) {
+     case 0:
+     session.send("Amount is: $ 15,000");
+     break;
+     case 1:
+     session.send("Date is: $ 09/04/2017");
+     break;
+     case 2:
+     session.send("Payment Mode is: DD");
+     break;
+     case 3:
+     session.send("Payment Method is: DD");
+     break;
+     case 4:
+     session.send("Payment Bank is: ICICI");
+     break;
+     case 5:
+     session.endDialog();
+     break;
+     }
+     }*/
 ]);
 
 bot.dialog('rootMenu', [
@@ -93,7 +94,7 @@ bot.dialog('rootMenu', [
                 session.replaceDialog('rootMenu');
                 break;
             case 1:
-                session.send("Date is: $ 09/04/2017");
+                session.send("Date is:  09/04/2017");
                 session.replaceDialog('rootMenu');
                 break;
             case 2:
@@ -115,14 +116,57 @@ bot.dialog('rootMenu', [
     }
 ]);
 
-bot.dialog('/update', [
+bot.dialog('/inventory', [
     function (session) {
-        builder.Prompts.text(session, 'Hi! What is your Gender?');
+        builder.Prompts.text(session, 'Please Enter Your DUNS number');
     },
     function (session, results) {
-        session.send("ok");
-        session.endDialog();
+        builder.Prompts.text(session,"An OTP has been sent to the registered email on file. Please Enter the OTP.");
+        // console.log(results.response);
+        // builder.Prompts.text(session,"An OTP has been sent to the registered email on file. Please Enter the OTP.");
+        // console.log(results.response);
+        // session.send("Please ask the query");
+
+    },
+    function (session, results) {
+        session.send(results.response);
+        session.send("OTP Verified. Thank You");
+        session.beginDialog('inventoryMenu');
+        // builder.Prompts.text(session,"How can i help you?");
+        // builder.Prompts.choice(session, "", "Payment Amount|Date of Payment|Payment Mode|Payment method|Bank|Main Menu", { listStyle: builder.ListStyle.button })
     }
 ]);
 
+bot.dialog('inventoryMenu', [
+    function (session) {
+        builder.Prompts.choice(session, "The following products are supplied by you. Choose one to know more.", "Silicon Wafer 200 micron|Galvanized metal mesh 10*20|Polished Silicon Wafer 2 inches|Plain Weave screen 600 microns|Steel Cable wire 2 mm|Main Menu", { listStyle: builder.ListStyle.button })
+    },
+    function (session, results) {
+        switch (results.response.index) {
+            case 0:
+                session.send("Silicon Wafer 200 micron");
+                session.replaceDialog('inventoryMenu');
+                break;
+            case 1:
+                session.send("Date is:  09/04/2017");
+                session.replaceDialog('inventoryMenu');
+                break;
+            case 2:
+                session.send("Payment Mode is: DD");
+                session.replaceDialog('inventoryMenu');
+                break;
+            case 3:
+                session.send("Payment Method is: DD");
+                session.replaceDialog('inventoryMenu');
+                break;
+            case 4:
+                session.send("Payment Bank is: ICICI");
+                session.replaceDialog('inventoryMenu');
+                break;
+            case 5:
+                session.endDialog();
+                break;
+        }
+    }
+]);
 
